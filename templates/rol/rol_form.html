@@ -1,0 +1,35 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Rol Nuevo {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="container mt--8 pb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card bg-secondary border-0">
+                <div class="card-body px-lg-5 py-lg-5">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="submit" class="form-control fa fa-save btn btn-success"> Guardar
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <a class="btn btn-danger btn-lg " href="{%url 'rol:index'%}"><i
+                                            class="ni ni-fat-remove"></i>Cancelar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

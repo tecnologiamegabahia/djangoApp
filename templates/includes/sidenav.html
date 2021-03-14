@@ -1,0 +1,133 @@
+<nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+    <div class="scrollbar-inner">
+        <!-- Brand -->
+        <div class="sidenav-header  align-items-center">
+            <a class="navbar-brand" href="{%url 'usuario:dashboard'%}">
+                <img src="/static/assets/img/brand/blue.png" class="navbar-brand-img">
+            </a>
+        </div>
+        <div class="media-body  ml-2  d-none d-lg-block">
+            <span class="mb-0 text-sm  font-weight-bold">
+            </span>
+        </div>
+        <div class="navbar-inner">
+            <!-- Collapse -->
+            <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+                <!-- Nav items -->
+                <ul class="navbar-nav">
+                    {% if user.rol.permisoAdmin == '1' %}
+                    <li class="nav-item nav-with-child">
+                        <a class="nav-link">
+                            <i class="fa fa-cogs"></i> Administracion
+                        </a>
+                        <ul class="nav-item-child">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/usuario">
+                                    <i class="ni ni-tv-2 text-primary"></i>
+                                    <span class="nav-link-text">Usuarios</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link  " href="/roles">
+                                    <i class="ni ni-planet text-orange"></i>
+                                    <span class="nav-link-text">Roles</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                    {% if user.rol.permisoProcesos == '1' %}
+                    <li class="nav-item nav-with-child">
+                        <a class="nav-link">
+                            <i class="fa fa-upload"></i> Carga de Archivos
+                        </a>
+                        <ul class="nav-item-child">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="fa fa-keyboard text-cyan"></i>
+                                    <span class="nav-link-text">Datos Manual</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link  " href="#">
+                                    <i class="fa fa-file-excel text-green"></i>
+                                    <span class="nav-link-text">Datos Excel</span>
+                                </a>
+                            </li>
+                            <li class="nav-item" >
+                                <a class="nav-link" href="/clientes">
+                                    <i class="fa fa-file text-blue"></i>
+                                    <span class="nav-link-text">Datos CSV</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/clientes/lista">
+                                    <i class="fa fa-file-excel text-green"></i>
+                                    <span class="nav-link-text">Descargar Respuestas</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                    {% if user.rol.permisoReportes == '1' %}
+                    <li class="nav-item nav-with-child">
+                        <a class="nav-link">
+                            <i class="fa fa-download"></i> Descarga de Informacion
+                        </a>
+                        <ul class="nav-item-child">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="ni ni-tv-2 text-primary"></i>
+                                    <span class="nav-link-text">Reporte</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</nav>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script>
+    var NavWithChild = (function () {
+        var $nav = $('.nav-item.nav-with-child');
+        setTimeout(function () {
+            $nav.each(function (index, each) {
+
+                $(each).on('click', function (event) {
+                    if ($(each).is('.nav-item-expanded')) {
+                        $(each).removeClass('nav-item-expanded')
+
+                    } else {
+                        $(each).addClass('nav-item-expanded')
+                    }
+                })
+            });
+        }, 300)
+
+    })();
+
+</script>
+<style type="text/css">
+    .nav-item.nav-with-child > .nav-item-child {
+        list-style: none;
+        height: 0;
+        min-height: 0px;
+        overflow: hidden !important;
+        padding: 0px 1.5rem;
+        transition: all 0.5s ease-in-out;
+        margin-left: 25px;
+    }
+
+    .nav-item.nav-with-child.nav-item-expanded > .nav-item-child {
+        padding: 0.5rem 1.5rem;
+        position: relative;
+        height: auto;
+        min-height: 50px;
+        display: block;
+        transition: all 0.5s ease-in-out;
+    }
+</style>

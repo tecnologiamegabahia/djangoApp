@@ -1,0 +1,88 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Lista de Usuario  {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-9 col-md-9 col-lg-9">
+    </div>
+    <div class="col-2 col-md-2 col-lg-2">
+        <div class="card">
+            <a  class="form-control btn btn-success fa fa-plus"  href="{% url 'usuario:usuario_crear' %}">  Nuevo</a>
+        </div>
+    </div>
+    <div class="col-1 col-md-1 col-lg-1">
+         {{ queryset }}
+    </div>
+    <div class="col-2 col-md-2 col-lg-2">
+    </div>
+    <div class="col-10 col-md-10 col-lg-10">
+        <div class="card">
+
+            <table class="table table-responsive-md table-responsive-lg">
+                <thead>
+                <tr>
+                    <td>UserName</td>
+                    <td>Nombre</td>
+                    <td>Apellido</td>
+                    <td>Documento</td>
+                    <td>Email</td>
+                    <td>Telefono</td>
+                    <td>Ciudad</td>
+                    <td>Acciones</td>
+                </tr>
+
+                </thead>
+                <tbody>
+                {% if object_list  %}
+                {% for usuario in object_list  %}
+                <tr>
+                    <td>{{usuario.username}}</td>
+                    <td>{{usuario.nombre}}</td>
+                    <td>{{usuario.apellido}}</td>
+                    <td>{{usuario.documento}}</td>
+                    <td>{{usuario.email}}</td>
+                    <td>{{usuario.phone}}</td>
+                    <td>{{usuario.ciudad}}</td>
+                    <td><a class="btn btn-primary" href="{% url 'usuario:usuario_editar' usuario.id%}"><i
+                            class="ni ni-align-left-2" aria-hidden="true"></i></a>
+                        <a class="btn btn-danger" href="{% url 'usuario:usuario_eliminar' usuario.id%}"><i
+                                class="fa fa-trash" aria-hidden="true"></i></a></td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <h1>No hay registros de Usuarios</h1>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<ul class="pager">
+    <!--	<li>
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+            </li>
+        <li>
+            {% if page_obj.has_next %}
+              <a href="?page={{ page_obj.next_page_number }}">Next</a>
+            {% endif %}
+        </li>-->
+</ul>
+
+
+{% endblock %}
+
+<style>
+   .pagination {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+</style>
