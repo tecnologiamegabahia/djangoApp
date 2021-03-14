@@ -33,6 +33,7 @@ def uploads(request):
                 values = line.decode().split("\t")
                 if values[27] == '':
                     insert_value(values)
+                    print(values)
                     resultValid.append(values)
                 else:
                     resultInvalid.append(values)
@@ -84,7 +85,8 @@ def insert_value(values):
              values[34]
              ]
     cursor = connection.cursor()
-    sql = "INSERT INTO cliente_datos_cliente (NUMERO_CEDULA, NUMERO_CEDULA_NUMERICO, NOMBRES_Y_APELLIDOS, COD_SEXO, DESCRIPCION_SEXO, COD_CIUDADANIA, DESCRIPCION_CIUDADANIA, FECH_NACIMIENTO, CODIGO_LUGAR_NACIMIENTO, CODIGO_NACIONALIDAD, DESCRIPCION_NACIONALIDAD, CODIGO_ESTADO_CIVIL, DESCRIPCION_ESTADO_CIVIL, CODIGO_NIVEL_ESTUDIOS, DESCRIPCION_NIVEL_ESTUDIOS, CODIGO_PROFESION, DESCRIPCION_PROFESION, NOMBRE_CONYUGUE, CEDULA_CONYUGUE, FECHA_MATRIMONIO, LUG_MATRIMONIO, NOMBRES_DEL_PADRE, NAC_PAD, NUMERO_CEDULA_PADRE, NOMBRES_DE_LA_MADRE, NAC_MAD, NUMERO_CEDULA_MADRE, FECH_DEF, LUG_DEF, LUG_INSC, CODIGO_DOMICILIO, CALLE_DOMICILIO, NUMERO_CASA, FECHA_ACTUALIZACION_DATOS, GENERO, ESTADO_PERSONA, created_at, updated_at, state) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 'ACTIVO', current_timestamp(6), '', '1');"
+    sql = "INSERT INTO cliente_datos_cliente (NUMERO_CEDULA, NUMERO_CEDULA_NUMERICO, NOMBRES_Y_APELLIDOS, COD_SEXO, DESCRIPCION_SEXO, COD_CIUDADANIA, DESCRIPCION_CIUDADANIA, FECH_NACIMIENTO, CODIGO_LUGAR_NACIMIENTO, CODIGO_NACIONALIDAD, DESCRIPCION_NACIONALIDAD, CODIGO_ESTADO_CIVIL, DESCRIPCION_ESTADO_CIVIL, CODIGO_NIVEL_ESTUDIOS, DESCRIPCION_NIVEL_ESTUDIOS, CODIGO_PROFESION, DESCRIPCION_PROFESION, NOMBRE_CONYUGUE, CEDULA_CONYUGUE, FECHA_MATRIMONIO, LUG_MATRIMONIO, NOMBRES_DEL_PADRE, NAC_PAD, NUMERO_CEDULA_PADRE, NOMBRES_DE_LA_MADRE, NAC_MAD, NUMERO_CEDULA_MADRE, FECH_DEF, LUG_DEF, LUG_INSC, CODIGO_DOMICILIO, CALLE_DOMICILIO, NUMERO_CASA, FECHA_ACTUALIZACION_DATOS, GENERO, ESTADO_PERSONA, created_at, updated_at, state) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 'ACTIVO', current_timestamp(6), current_timestamp(6), '1');"
+
     cursor.execute(sql, model)
 
 
