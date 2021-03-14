@@ -19,6 +19,7 @@ from django.conf.urls import url, include
 from django.contrib.auth.views import LoginView
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,3 +30,4 @@ urlpatterns = [
     path("clientes/", include(("apps.cliente.urls", 'clientes'), namespace='clientes')),
 ]
 
+urlpatterns += staticfiles_urlpatterns()
