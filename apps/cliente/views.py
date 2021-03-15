@@ -8,6 +8,7 @@ from datetime import datetime
 from django.http import HttpResponse
 from django.core.paginator import Paginator
 from django.views.generic.base import View
+from django.contrib import messages
 
 # Create your views here.
 cipher = AESCipher(settings.SECRET_KEY)
@@ -42,7 +43,7 @@ def uploads(request):
         listValid = listToString(resultValid)
         insert_invalid(listInvalid)
         insert_valid(listValid)
-
+        messages.success(request, 'La Importación se Realizo Correctamente')
     return render(request, 'cliente/upload.html')
 
 
