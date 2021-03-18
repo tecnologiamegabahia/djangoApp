@@ -11,8 +11,7 @@ from django.views.generic.base import View
 from django.contrib import messages
 
 cipher = AESCipher(settings.SECRET_KEY)
-resultInvalid = []
-resultValid = []
+
 datetime = datetime.now()
 timestampStr = datetime.strftime("%Y%b%d%H%M%S%f")
 
@@ -22,6 +21,8 @@ timestampStr = datetime.strftime("%Y%b%d%H%M%S%f")
 # def para cargar archivo
 @csrf_exempt
 def uploads(request):
+    resultInvalid = []
+    resultValid = []
     try:
         if request.method == 'POST':
             first = True
