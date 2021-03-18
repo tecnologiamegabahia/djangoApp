@@ -45,6 +45,14 @@ INSTALLED_APPS = [
     'apps.authentication',
     'import_export',
     'apps.cliente',
+    'apps.contribuyente',
+    'apps.establecimiento',
+    'apps.representante_legal',
+    'apps.ubicacione_geografica',
+    'apps.actividad_economica',
+    'apps.medio_contacto',
+    'apps.tipo_contribuyente',
+    'apps.actividad_economica_establecimiento'
 ]
 
 AUTH_USER_MODEL = 'usuario.usuario'
@@ -115,7 +123,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-mx'
 
 TIME_ZONE = 'UTC'
 
@@ -127,13 +135,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # archivos static.
-STATIC_ROOT = os.path.join(CORE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 MEDIA_URL = '/templates/logs/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'templates/logs/')
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(CORE_DIR, 'planApp/static'),
+    os.path.join(BASE_DIR, 'planApp/static'),
 )
 
 LOGIN_REDIRECT_URL = reverse_lazy('usuario: dashboard')

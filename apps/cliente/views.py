@@ -20,31 +20,35 @@ timestampStr = datetime.strftime("%Y%b%d%H%M%S%f")
 
 @csrf_exempt
 def uploads(request):
-    if request.method == 'POST':
-        first = True
-        uploaded_file = request.FILES['document']
-        lines = uploaded_file.readlines()
-        for line in lines:
-            if first:
-                resultValid.append(line.decode().split("\t"))
-                resultInvalid.append(line.decode().split("\t"))
-                first = False
-                continue
-            else:
-                values = line.decode().split("\t")
-                if values[27] == '':
-                    insert_value(values)
-                    print(values)
-                    resultValid.append(values)
+    try:
+        if request.method == 'POST':
+            first = True
+            uploaded_file = request.FILES['document']
+            lines = uploaded_file.readlines()
+            for line in lines:
+                if first:
+                    resultValid.append(line.decode().split("\t"))
+                    resultInvalid.append(line.decode().split("\t"))
+                    first = False
+                    continue
                 else:
-                    resultInvalid.append(values)
+                    values = line.decode(encoding='latin-1').split("\t")
+                    if values[27] == '':
+                        insert_value(values)
+                        resultValid.append(values)
+                    else:
+                        resultInvalid.append(values)
 
-        listInvalid = listToString(resultInvalid)
-        listValid = listToString(resultValid)
-        insert_invalid(listInvalid)
-        insert_valid(listValid)
-        messages.success(request, 'La Importación se Realizo Correctamente')
-    return render(request, 'cliente/upload.html')
+            listInvalid = listToString(resultInvalid)
+            listValid = listToString(resultValid)
+            insert_invalid(listInvalid)
+            insert_valid(listValid)
+            conta = len(resultValid)
+            messages.success(request, 'La Importación se Realizo Correctamente, contactos cargados: ' + str(conta - 1))
+        return render(request, 'cliente/upload.html')
+    except Exception as e:
+        messages.success(request, 'Error verifique el archivo')
+        return render(request, 'cliente/upload.html')
 
 
 @csrf_exempt
@@ -92,14 +96,14 @@ def insert_value(values):
 
 
 def insert_invalid(insert):
-    archivo = open(settings.MEDIA_ROOT + "registros-invalidos" + str(timestampStr) + ".txt", "w")
+    archivo = open(settings.MEDIA_ROOT + 'clientes/' + "registros-invalidos" + str(timestampStr) + ".txt", "w")
     archivo.write(str(insert))
     archivo.close()
     return True
 
 
 def insert_valid(insert):
-    archivo = open(settings.MEDIA_ROOT + "registros-validos" + str(timestampStr) + ".txt", "w")
+    archivo = open(settings.MEDIA_ROOT + 'clientes/' + "registros-validos" + str(timestampStr) + ".txt", "w")
     archivo.write(str(insert))
     archivo.close()
     return True
@@ -117,9 +121,9 @@ def listToString(s):
 
 
 def verificarArchivos(request):
-    with os.scandir(settings.MEDIA_ROOT) as ficheros:
+    with os.scandir(settings.MEDIA_ROOT + 'clientes/') as ficheros:
         ficheros = [fichero.name for fichero in ficheros if fichero.is_file()]
-        paginator = Paginator(ficheros, 10)
+        paginator = Paginator(ficheros, 5)
         page = request.GET.get('page')
         page_fichero = paginator.get_page(page)
 
@@ -132,8 +136,7 @@ def home(request):
 
 
 def download(request, path):
-    print(path)
-    file_path = os.path.join(settings.MEDIA_ROOT, path)
+    file_path = os.path.join(settings.MEDIA_ROOT + 'clientes/', path)
     if os.path.exists(file_path):
         with open(file_path, 'rb') as fh:
             response = HttpResponse(fh.read(), content_type="application/text")
@@ -145,8 +148,7 @@ class DescargarArchivoView(View):
 
     def post(self, request, *args, **kwargs):
         form = request.POST['valuer']
-        print(form)
-        file_path = os.path.join(settings.MEDIA_ROOT, form)
+        file_path = os.path.join(settings.MEDIA_ROOT + 'clientes/', form)
         with open(file_path, 'rb') as fh:
             response = HttpResponse(fh.read(), content_type='text/plain')
             response['Content-Disposition'] = 'attachment; filename="%s"' % form

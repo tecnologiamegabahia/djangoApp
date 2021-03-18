@@ -1,4 +1,4 @@
-from apps.cliente.views import uploads, verificarArchivos, home, DescargarArchivoView
+from apps.actividad_economica_establecimiento.views import uploads, verificarArchivos, home, DescargarArchivoView
 from django.conf.urls import url, include
 from django.views.static import serve
 from django.conf import settings

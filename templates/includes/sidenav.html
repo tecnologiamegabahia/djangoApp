@@ -2,7 +2,7 @@
     <div class="scrollbar-inner">
         <!-- Brand -->
         <div class="sidenav-header  align-items-center">
-            <a class="navbar-brand" href="{%url 'usuario:dashboard'%}">
+            <a class="navbar-brand" href="{% url 'usuario:dashboard' %}">
                 <img src="/static/assets/img/brand/blue.png" class="navbar-brand-img">
             </a>
         </div>
@@ -10,79 +10,230 @@
             <span class="mb-0 text-sm  font-weight-bold">
             </span>
         </div>
+
         <div class="navbar-inner">
             <!-- Collapse -->
-            <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+            <div class="collapse navbar-collapse " id="sidenav-collapse-main">
                 <!-- Nav items -->
-                <ul class="navbar-nav">
+                <ul class="navbar-nav navegador ">
                     {% if user.rol.permisoAdmin == '1' %}
-                    <li class="nav-item nav-with-child">
-                        <a class="nav-link">
-                            <i class="fa fa-cogs"></i> Administracion
-                        </a>
-                        <ul class="nav-item-child">
-                            <li class="nav-item">
-                                <a class="nav-link" href="/usuario">
-                                    <i class="ni ni-tv-2 text-primary"></i>
-                                    <span class="nav-link-text">Usuarios</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link  " href="/roles">
-                                    <i class="ni ni-planet text-orange"></i>
-                                    <span class="nav-link-text">Roles</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                        <li class="nav-item  nav-with-child ">
+                            <a class="nav-link desplegable">
+                                <i class="fa fa-cogs"></i> Administracion
+                            </a>
+                            <ul class="nav-item-child subnavegador">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/usuario">
+                                        <i class="ni ni-tv-2 text-primary"></i>
+                                        <span class="nav-link-text">Usuarios</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link  " href="/roles">
+                                        <i class="ni ni-planet text-orange"></i>
+                                        <span class="nav-link-text">Roles</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
                     {% endif %}
                     {% if user.rol.permisoProcesos == '1' %}
-                    <li class="nav-item nav-with-child">
-                        <a class="nav-link">
-                            <i class="fa fa-upload"></i> Carga de Archivos
-                        </a>
-                        <ul class="nav-item-child">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="fa fa-keyboard text-cyan"></i>
-                                    <span class="nav-link-text">Datos Manual</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link  " href="#">
-                                    <i class="fa fa-file-excel text-green"></i>
-                                    <span class="nav-link-text">Datos Excel</span>
-                                </a>
-                            </li>
-                            <li class="nav-item" >
-                                <a class="nav-link" href="/clientes">
-                                    <i class="fa fa-file text-blue"></i>
-                                    <span class="nav-link-text">Datos CSV</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/clientes/lista">
-                                    <i class="fa fa-file-excel text-green"></i>
-                                    <span class="nav-link-text">Descargar Respuestas</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                        <li class="nav-item nav-with-child ">
+                            <a class="nav-link desplegable">
+                                <i class="fa fa-upload"></i> Carga de Base
+                            </a>
+                            <ul class="nav-item-child subnavegador">
+                                <li class="nav-item nav-with-child">
+                                    <a class="nav-link desplegable">
+                                        <i class="fa fa-user"></i> Carga de Clientes
+                                    </a>
+                                    <ul class="nav-item-child subnavegador">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/clientes">
+                                                <i class="fa fa-file text-blue"></i>
+                                                <span class="nav-link-text">Datos CSV</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/clientes/lista">
+                                                <i class="fa fa-file-excel text-green"></i>
+                                                <span class="nav-link-text">Descargar Respuestas</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item nav-with-child">
+                                    <a class="nav-link desplegable">
+                                        <i class="fa fa-users-cog"></i> Carga de Contribuyentes
+                                    </a>
+                                    <ul class="nav-item-child subnavegador">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/contribuyentes">
+                                                <i class="fa fa-file text-blue"></i>
+                                                <span class="nav-link-text">Datos CSV</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/contribuyentes/lista">
+                                                <i class="fa fa-file-excel text-green"></i>
+                                                <span class="nav-link-text">Descargar Respuestas</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item nav-with-child">
+                                    <a class="nav-link desplegable">
+                                        <i class="fa fa-marker"></i> Carga de Establecimientos
+                                    </a>
+                                    <ul class="nav-item-child subnavegador">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/establecimientos">
+                                                <i class="fa fa-file text-blue"></i>
+                                                <span class="nav-link-text">Datos CSV</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/establecimientos/lista">
+                                                <i class="fa fa-file-excel text-green"></i>
+                                                <span class="nav-link-text">Descargar Respuestas</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item nav-with-child">
+                                    <a class="nav-link desplegable">
+                                        <i class="fa fa-layer-group"></i> Carga de Representantes Legales
+                                    </a>
+                                    <ul class="nav-item-child subnavegador">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/representante_legal">
+                                                <i class="fa fa-file text-blue"></i>
+                                                <span class="nav-link-text">Datos CSV</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/representante_legal/lista">
+                                                <i class="fa fa-file-excel text-green"></i>
+                                                <span class="nav-link-text">Descargar Respuestas</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item nav-with-child">
+                                    <a class="nav-link desplegable">
+                                        <i class="fa fa-map"></i> Carga de ubicaciones Geograficas
+                                    </a>
+                                    <ul class="nav-item-child subnavegador">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/ubicaciones_geograficas">
+                                                <i class="fa fa-file text-blue"></i>
+                                                <span class="nav-link-text">Datos CSV</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/ubicaciones_geograficas/lista">
+                                                <i class="fa fa-file-excel text-green"></i>
+                                                <span class="nav-link-text">Descargar Respuestas</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item nav-with-child">
+                                    <a class="nav-link desplegable">
+                                        <i class="fa fa-dollar-sign"></i> Carga de Actividades Economicas
+                                    </a>
+                                    <ul class="nav-item-child subnavegador">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/actividades_economicas">
+                                                <i class="fa fa-file text-blue"></i>
+                                                <span class="nav-link-text">Datos CSV</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/actividades_economicas/lista">
+                                                <i class="fa fa-file-excel text-green"></i>
+                                                <span class="nav-link-text">Descargar Respuestas</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item nav-with-child">
+                                    <a class="nav-link desplegable">
+                                        <i class="fa fa-camera"></i> Carga de medios de Contacto
+                                    </a>
+                                    <ul class="nav-item-child subnavegador">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/medios_contacto">
+                                                <i class="fa fa-file text-blue"></i>
+                                                <span class="nav-link-text">Datos CSV</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/medios_contacto/lista">
+                                                <i class="fa fa-file-excel text-green"></i>
+                                                <span class="nav-link-text">Descargar Respuestas</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item nav-with-child">
+                                    <a class="nav-link desplegable">
+                                        <i class="fa fa-users"></i> Carga de tipos de Contribuyente
+                                    </a>
+                                    <ul class="nav-item-child subnavegador">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/tipos_contribuyentes">
+                                                <i class="fa fa-file text-blue"></i>
+                                                <span class="nav-link-text">Datos CSV</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/tipos_contribuyentes/lista">
+                                                <i class="fa fa-file-excel text-green"></i>
+                                                <span class="nav-link-text">Descargar Respuestas</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item nav-with-child">
+                                    <a class="nav-link desplegable">
+                                        <i class="fa fa-file"></i> Carga de Actividad Ecónomica Establecimiento
+                                    </a>
+                                    <ul class="nav-item-child subnavegador">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/actividad_economica_est">
+                                                <i class="fa fa-file text-blue"></i>
+                                                <span class="nav-link-text">Datos CSV</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/actividad_economica_est/lista">
+                                                <i class="fa fa-file-excel text-green"></i>
+                                                <span class="nav-link-text">Descargar Respuestas</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+
+                        </li>
                     {% endif %}
                     {% if user.rol.permisoReportes == '1' %}
-                    <li class="nav-item nav-with-child">
-                        <a class="nav-link">
-                            <i class="fa fa-download"></i> Descarga de Informacion
-                        </a>
-                        <ul class="nav-item-child">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="ni ni-tv-2 text-primary"></i>
-                                    <span class="nav-link-text">Reporte</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                        <li class="nav-item nav-with-child">
+                            <a class="nav-link desplegable">
+                                <i class="fa fa-download"></i> Descarga de Informacion
+                            </a>
+                            <ul class="nav-item-child subnavegador">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <i class="ni ni-tv-2 text-primary"></i>
+                                        <span class="nav-link-text">Reporte</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     {% endif %}
                 </ul>
             </div>
@@ -90,44 +241,90 @@
 
     </div>
 </nav>
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script>
-    var NavWithChild = (function () {
-        var $nav = $('.nav-item.nav-with-child');
-        setTimeout(function () {
-            $nav.each(function (index, each) {
+    $(document).ready(function () { // Script del Navegador
 
-                $(each).on('click', function (event) {
-                    if ($(each).is('.nav-item-expanded')) {
-                        $(each).removeClass('nav-item-expanded')
+        $('#abrir').click(function () {
+                $(".cmenu").animate({"left": "+124px"}, "slow");
+            },
+            function () {
+                $(".cmenu").animate({"left": "0px"}, "slow"),
+                    $('#abrir').css('display', 'none');
 
-                    } else {
-                        $(each).addClass('nav-item-expanded')
-                    }
-                })
-            });
-        }, 300)
+            },
+            $('#cerrar').click(function () {
+                    $(".cmenu").animate({"left": "-127px"}, "slow");
 
-    })();
+                    $("ul.subnavegador").hide();
+                }
+            )
+        );
 
+        /*$("a.desplegable").toggle(
+            function () {
+                $(this).parent().find("ul.subnavegador").slideDown('fast');
+            },
+            function () {
+                $(this).parent().find("ul.subnavegador").slideUp('fast');
+            }
+        );*/
+        $('.desplegable').click(function () {
+            if ($(this).next('.subnavegador').is(":hidden")) {
+                $(this).next('.subnavegador').slideDown('fast');
+            } else {
+                $(this).next('.subnavegador').slideUp('fast');
+            }
+        });
+    });
 </script>
 <style type="text/css">
-    .nav-item.nav-with-child > .nav-item-child {
-        list-style: none;
-        height: 0;
-        min-height: 0px;
-        overflow: hidden !important;
-        padding: 0px 1.5rem;
-        transition: all 0.5s ease-in-out;
-        margin-left: 25px;
+    .cmenu {
+        height: 300px;
+        width: 500px;
+        position: absolute;
+        top: 10px;
+        bottom: 40px;
+        left: -124px;
     }
 
-    .nav-item.nav-with-child.nav-item-expanded > .nav-item-child {
-        padding: 0.5rem 1.5rem;
-        position: relative;
-        height: auto;
-        min-height: 50px;
+    .menuoculto {
+        height: 82px;
+        width: 28px;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        position: absolute;
+        left: 150px;
+        top: 5px;
         display: block;
-        transition: all 0.5s ease-in-out;
     }
+
+    .menuvisible {
+        margin: auto;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        position: absolute;
+        left: -30px;
+        top: 5px;
+        display: block;
+
+    }
+
+    .menu {
+        height: 300px;
+        width: 127px;
+        top: 1px;
+        bottom: 80px;
+        background-repeat: no-repeat;
+
+    }
+
+    .subnavegador {
+        width: 250px;
+        display: none;
+        color: #0d2474;
+        list-style: none;
+    }
+
 </style>

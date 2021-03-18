@@ -28,6 +28,20 @@ urlpatterns = [
     path("accounts/", include("apps.authentication.urls")),
     path("", include("apps.authentication.urls")),
     path("clientes/", include(("apps.cliente.urls", 'clientes'), namespace='clientes')),
+    path("contribuyentes/", include(("apps.contribuyente.urls", 'contribuyentes'), namespace='contribuyentes')),
+    path("establecimientos/", include(("apps.establecimiento.urls", 'establecimientos'), namespace='establecimientos')),
+    path("representante_legal/",
+         include(("apps.representante_legal.urls", 'representante_legal'), namespace='representante_legal')),
+    path("ubicaciones_geograficas/",
+         include(("apps.ubicacione_geografica.urls", 'ubicaciones_geograficas'), namespace='ubicaciones_geograficas')),
+    path("actividades_economicas/",
+         include(("apps.actividad_economica.urls", 'actividades_economicas'), namespace='actividades_economicas')),
+    path("medios_contacto/",
+         include(("apps.medio_contacto.urls", 'medios_contacto'), namespace='medios_contacto')),
+    path("tipos_contribuyentes/",
+         include(("apps.tipo_contribuyente.urls", 'tipos_contribuyentes'), namespace='tipos_contribuyentes')),
+    path("actividad_economica_est/",
+         include(("apps.actividad_economica_establecimiento.urls", 'actividad_economica_est'), namespace='actividad_economica_est')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
