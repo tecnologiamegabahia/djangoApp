@@ -14,14 +14,13 @@ cipher = AESCipher(settings.SECRET_KEY)
 
 datetime = datetime.now()
 timestampStr = datetime.strftime("%Y%b%d%H%M%S%f")
-
+resultInvalid = []
 
 # Create your views here.
 
 # def para cargar archivo
 @csrf_exempt
 def uploads(request):
-    resultInvalid = []
     resultValid = []
     try:
         if request.method == 'POST':

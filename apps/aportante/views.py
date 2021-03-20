@@ -10,13 +10,13 @@ from django.core.paginator import Paginator
 from django.views.generic.base import View
 from django.contrib import messages
 
-# Create your views here.
-
 cipher = AESCipher(settings.SECRET_KEY)
 resultInvalid = []
 datetime = datetime.now()
 timestampStr = datetime.strftime("%Y%b%d%H%M%S%f")
 
+
+# Create your views here.
 
 # def para cargar archivo
 @csrf_exempt
@@ -29,12 +29,13 @@ def uploads(request):
             lines = uploaded_file.readlines()
             for line in lines:
                 if first:
-                    resultValid.append(line.decode().split("\t"))
-                    resultInvalid.append(line.decode().split("\t"))
+                    resultValid.append(line.decode(encoding='latin-1').split("\t"))
+                    resultInvalid.append(line.decode(encoding='latin-1').split("\t"))
                     first = False
                     continue
                 else:
                     values = line.decode(encoding='latin-1').split("\t")
+                    print(values)
                     insert_value(values)
                     resultValid.append(values)
 
@@ -44,10 +45,10 @@ def uploads(request):
             insert_valid(listValid)
             conta = len(resultValid)
             messages.success(request, 'La Importación se Realizo Correctamente, contactos cargados: ' + str(conta - 1))
-        return render(request, 'establecimientos/upload.html')
+        return render(request, 'aportantes/upload.html')
     except Exception as e:
         messages.success(request, 'Error verifique el archivo')
-        return render(request, 'establecimientos/upload.html')
+        return render(request, 'aportantes/upload.html')
 
 
 # def para inserta valores table
@@ -56,27 +57,27 @@ def insert_value(values):
     try:
         model = [cipher.encrypt(values[0]),
                  values[1],
-                 values[2],
+                 cipher.encrypt(values[2]),
+                 values[3],
                  values[4],
-                 values[5],
-                 values[6],
-                 values[7],
+                 cipher.encrypt(values[5]),
+                 cipher.encrypt(values[6]),
+                 cipher.encrypt(values[7]),
                  values[8],
-                 values[9],
+                 cipher.encrypt(values[9]),
                  values[10],
                  values[11],
-                 values[13],
-                 values[14],
-                 values[15],
+                 cipher.encrypt(values[12]),
+                 cipher.encrypt(values[13]),
+                 cipher.encrypt(values[14]),
+                 cipher.encrypt(values[15]),
                  values[16],
                  values[17],
                  values[18],
-                 values[3],
                  values[19],
-                 values[20],
                  ]
         cursor = connection.cursor()
-        sql = "INSERT INTO app_plan.establecimiento_establecimiento(NUMERO_RUC, NUMERO_ESTABLECIMIENTO, NOMBRE_FANTASIA_COMERCIAL, FECHA_INSCRIPCION, FECHA_INICIO_ACTIVIDADES, FECHA_REINICIO_ACTIVIDADES, FECHA_ACTUALIZACION, FECHA_CIERRE, ESTADO_ESTABLECIMIENTO, UBICACION_GEOGRAFICA, BARRIO, CALLE, INTERSECCION, NOMBRE_EDIFICIO, NUMERO, NUMERO_OFICINA, NUMERO_PISO, REFERENCIA_UBICACION, TIPO_ESTABLECIMIENTO, FECHA_VERIFICACION, created_at, updated_at, state)VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, current_timestamp(6), current_timestamp(6), '1');"
+        sql = "INSERT INTO aportante_aportante(NUMAFI, CODDIVPOL, RUCEMP, CODSUC, CODTIPEMP, NOMEMP, TELSUC, DIRSUC, FAXSUC, APENOMAFI, DIRAFI, TELAFI, CELULAR, EMAIL, SALARIO, FECINGAFI, FECSALAFI, OCUAFI, V19, MES)VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
         cursor.execute(sql, model)
     except Exception as e:
         resultInvalid.append(values)
@@ -85,7 +86,7 @@ def insert_value(values):
 
 # def crear archivo registros invalidos
 def insert_invalid(insert):
-    archivo = open(settings.MEDIA_ROOT + "establecimientos/registros-invalidos" + str(timestampStr) + ".txt", "w")
+    archivo = open(settings.MEDIA_ROOT + "aportantes/registros-invalidos" + str(timestampStr) + ".txt", "w")
     archivo.write(str(insert))
     archivo.close()
     return True
@@ -93,7 +94,7 @@ def insert_invalid(insert):
 
 # def crear archivo registros validos
 def insert_valid(insert):
-    archivo = open(settings.MEDIA_ROOT + "establecimientos/registros-validos" + str(timestampStr) + ".txt", "w")
+    archivo = open(settings.MEDIA_ROOT + "aportantes/registros-validos" + str(timestampStr) + ".txt", "w")
     archivo.write(str(insert))
     archivo.close()
     return True
@@ -113,23 +114,23 @@ def listToString(s):
 
 # def verificar archivos existentes, mapa de paginas
 def verificarArchivos(request):
-    with os.scandir(settings.MEDIA_ROOT + 'establecimientos/') as ficheros:
+    with os.scandir(settings.MEDIA_ROOT + 'aportantes/') as ficheros:
         ficheros = [fichero.name for fichero in ficheros if fichero.is_file()]
         paginator = Paginator(ficheros, 5)
         page = request.GET.get('page')
         page_fichero = paginator.get_page(page)
         contexto = {'ficheros': page_fichero}
-    return render(request, 'establecimientos/lista_subidos.html', contexto)
+    return render(request, 'aportantes/lista_subidos.html', contexto)
 
 
 def home(request):
-    return render(request, 'establecimientos/lista_subidos.html')
+    return render(request, 'aportantes/lista_subidos.html')
 
 
 # def descargar archivos existentes
 def download(request, path):
     print(path)
-    file_path = os.path.join(settings.MEDIA_ROOT + 'establecimientos/', path)
+    file_path = os.path.join(settings.MEDIA_ROOT + 'aportantes/', path)
     if os.path.exists(file_path):
         with open(file_path, 'rb') as fh:
             response = HttpResponse(fh.read(), content_type="application/text")
@@ -143,7 +144,7 @@ class DescargarArchivoView(View):
     def post(self, request, *args, **kwargs):
         form = request.POST['valuer']
         print(form)
-        file_path = os.path.join(settings.MEDIA_ROOT + 'establecimientos/', form)
+        file_path = os.path.join(settings.MEDIA_ROOT + 'aportantes/', form)
         with open(file_path, 'rb') as fh:
             response = HttpResponse(fh.read(), content_type='text/plain')
             response['Content-Disposition'] = 'attachment; filename="%s"' % form

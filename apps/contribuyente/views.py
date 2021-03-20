@@ -13,13 +13,13 @@ from django.contrib import messages
 # Create your views here.
 cipher = AESCipher(settings.SECRET_KEY)
 resultInvalid = []
-resultValid = []
 datetime = datetime.now()
 timestampStr = datetime.strftime("%Y%b%d%H%M%S%f")
 
 
 @csrf_exempt
 def uploads(request):
+    resultValid = []
     try:
         if request.method == 'POST':
             first = True

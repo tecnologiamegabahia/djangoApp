@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     'apps.actividad_economica',
     'apps.medio_contacto',
     'apps.tipo_contribuyente',
-    'apps.actividad_economica_establecimiento'
+    'apps.actividad_economica_establecimiento',
+    'apps.aportante'
 ]
 
 AUTH_USER_MODEL = 'usuario.usuario'

@@ -1,0 +1,53 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Archivos de Aportantes  {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+    <div class="col-12">
+        <br>
+        <br>
+        <br>
+    </div>
+    <div class="container mt--8 pb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="card bg-secondary border-0">
+                    <div class="card-header bg-transparent">
+                        <h2 class="text-uppercase ls-1 py-3 mb-0">Carga de Archivo de Aportantes</h2>
+                    </div>
+                    <div class="card-body px-lg-5 py-lg-5">
+                        <form method="post" enctype="multipart/form-data">{% csrf_token %}
+                            <input type="file" name="document" class="form-control">
+                            <br>
+                            <button type="submit" onclick="mostrar()" class="form-control btn btn-success">Subir
+                                Archivo
+                            </button>
+                        </form>
+                    </div>
+                    <button class="buttonload form-control btn btn-success" id="obj2" style="display: none">
+                        <i class="fa fa-spinner fa-spin "></i>
+                    </button>
+                    {% if messages %}
+                        {% for menssage in messages %}
+                            <div class="form-control btn-success" style="align-items: center">
+                                {{ menssage }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <style type="text/css">
+        .buttonload {
+            background-color: #4CAF50; /* Green background */
+            border: none; /* Remove borders */
+            color: white; /* White text */
+            padding: 12px 24px; /* Some padding */
+            font-size: 16px; /* Set a font-size */
+        }
+    </style>
+{% endblock %}

@@ -42,6 +42,7 @@ urlpatterns = [
          include(("apps.tipo_contribuyente.urls", 'tipos_contribuyentes'), namespace='tipos_contribuyentes')),
     path("actividad_economica_est/",
          include(("apps.actividad_economica_establecimiento.urls", 'actividad_economica_est'), namespace='actividad_economica_est')),
+    path("aportantes/", include(("apps.aportante.urls", 'aportantes'), namespace='aportantes')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

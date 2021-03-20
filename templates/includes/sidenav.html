@@ -38,31 +38,34 @@
                             </ul>
                         </li>
                     {% endif %}
+                    {% if user.rol.permisoReportes == '1' %}
+                        <li class="nav-item nav-with-child">
+                            <a class="nav-link desplegable">
+                                <i class="fa fa-users"></i> Base Clientes
+                            </a>
+                            <ul class="nav-item-child subnavegador">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/clientes">
+                                        <i class="fa fa-file text-blue"></i>
+                                        <span class="nav-link-text">Datos CSV</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/clientes/lista">
+                                        <i class="fa fa-file-excel text-green"></i>
+                                        <span class="nav-link-text">Descargar Respuestas</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endif %}
                     {% if user.rol.permisoProcesos == '1' %}
                         <li class="nav-item nav-with-child ">
                             <a class="nav-link desplegable">
-                                <i class="fa fa-upload"></i> Carga de Base
+                                <i class="fa fa-upload"></i> Base RUCs
                             </a>
                             <ul class="nav-item-child subnavegador">
-                                <li class="nav-item nav-with-child">
-                                    <a class="nav-link desplegable">
-                                        <i class="fa fa-user"></i> Carga de Clientes
-                                    </a>
-                                    <ul class="nav-item-child subnavegador">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="/clientes">
-                                                <i class="fa fa-file text-blue"></i>
-                                                <span class="nav-link-text">Datos CSV</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="/clientes/lista">
-                                                <i class="fa fa-file-excel text-green"></i>
-                                                <span class="nav-link-text">Descargar Respuestas</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
+
                                 <li class="nav-item nav-with-child">
                                     <a class="nav-link desplegable">
                                         <i class="fa fa-users-cog"></i> Carga de Contribuyentes
@@ -215,9 +218,28 @@
                                         </li>
                                     </ul>
                                 </li>
-
                             </ul>
-
+                        </li>
+                    {% endif %}
+                    {% if user.rol.permisoReportes == '1' %}
+                        <li class="nav-item nav-with-child">
+                            <a class="nav-link desplegable">
+                                <i class="fa fa-user"></i> Base Empleados
+                            </a>
+                            <ul class="nav-item-child subnavegador">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/aportantes">
+                                        <i class="fa fa-file text-blue"></i>
+                                        <span class="nav-link-text">Datos CSV</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/aportantes/lista">
+                                        <i class="fa fa-file-excel text-green"></i>
+                                        <span class="nav-link-text">Descargar Respuestas</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     {% endif %}
                     {% if user.rol.permisoReportes == '1' %}
