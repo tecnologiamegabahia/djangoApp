@@ -3,7 +3,7 @@
         <!-- Brand -->
         <div class="sidenav-header  align-items-center">
             <a class="navbar-brand" href="{% url 'usuario:dashboard' %}">
-                <img src="/static/assets/img/brand/blue.png" class="navbar-brand-img">
+                <span><h2>ARSEN</h2></span>
             </a>
         </div>
         <div class="media-body  ml-2  d-none d-lg-block">
@@ -249,9 +249,39 @@
                             </a>
                             <ul class="nav-item-child subnavegador">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">
-                                        <i class="ni ni-tv-2 text-primary"></i>
-                                        <span class="nav-link-text">Reporte</span>
+                                    <a class="nav-link" href="/reportes/conteo_cliente">
+                                        <i class="ni ni-single-copy-04 text-primary"></i>
+                                        <span class="nav-link-text">Reporte Conteo Clientes</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/reportes/conteo_contribuyentes">
+                                        <i class="ni ni-single-copy-04 text-primary"></i>
+                                        <span class="nav-link-text">Conteo Contribuyentes Naturales</span>
+                                    </a>
+                                </li>
+                                 <li class="nav-item">
+                                    <a class="nav-link" href="/reportes/conteo_contribuyentes_juridicos">
+                                        <i class="ni ni-single-copy-04 text-primary"></i>
+                                        <span class="nav-link-text">Conteo Contribuyentes Juridicos</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/reportes/conteo_empleados">
+                                        <i class="ni ni-single-copy-04 text-primary"></i>
+                                        <span class="nav-link-text">Conteo Empleados</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/reportes/index">
+                                        <i class="ni ni-single-copy-04 text-primary"></i>
+                                        <span class="nav-link-text">Reporte Cumpleaños Children</span>
+                                    </a>
+                                </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="/reportes/combo">
+                                        <i class="ni ni-single-copy-04 text-primary"></i>
+                                        <span class="nav-link-text">Reporte de Negocios</span>
                                     </a>
                                 </li>
                             </ul>

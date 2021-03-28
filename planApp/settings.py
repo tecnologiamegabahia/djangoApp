@@ -24,7 +24,7 @@ CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 # AUTOR:dguachamin
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'w_a^qoxjt&0ch9*s20&vj4apa3q7+w#2ap9#4@z7(wx*t8e9ak'
+SECRET_KEY = 'w_a^qoxjt&0ch9*s20&vj4apa3q7+w#2ap9#4@z79wx*t8e9ak'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'apps.medio_contacto',
     'apps.tipo_contribuyente',
     'apps.actividad_economica_establecimiento',
-    'apps.aportante'
+    'apps.aportante',
+    'apps.reportes'
 ]
 
 AUTH_USER_MODEL = 'usuario.usuario'

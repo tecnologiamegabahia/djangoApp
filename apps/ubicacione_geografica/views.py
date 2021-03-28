@@ -25,6 +25,7 @@ def uploads(request):
     try:
         if request.method == 'POST':
             first = True
+            drop_table()
             uploaded_file = request.FILES['document']
             lines = uploaded_file.readlines()
             for line in lines:
@@ -50,6 +51,7 @@ def uploads(request):
         messages.success(request, 'Error verifique el archivo')
         return render(request, 'ubicaciones_geograficas/upload.html')
 
+
 # def para inserta valores table
 @csrf_exempt
 def insert_value(values):
@@ -68,9 +70,19 @@ def insert_value(values):
         print(e)
 
 
+def drop_table():
+    try:
+        cursor = connection.cursor()
+        sql = 'TRUNCATE table ubicacione_geografica_ubicacion_goegrafica'
+        cursor.execute(sql)
+    except Exception as e:
+        print(e)
+
+
 # def crear archivo registros invalidos
 def insert_invalid(insert):
-    archivo = open(settings.MEDIA_ROOT + "ubicaciones_geograficas/registros-invalidos" + str(timestampStr) + ".txt", "w")
+    archivo = open(settings.MEDIA_ROOT + "ubicaciones_geograficas/registros-invalidos" + str(timestampStr) + ".txt",
+                   "w")
     archivo.write(str(insert))
     archivo.close()
     return True

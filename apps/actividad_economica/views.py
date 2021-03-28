@@ -16,6 +16,7 @@ datetime = datetime.now()
 timestampStr = datetime.strftime("%Y%b%d%H%M%S%f")
 resultInvalid = []
 
+
 # Create your views here.
 
 # def para cargar archivo
@@ -25,6 +26,7 @@ def uploads(request):
     try:
         if request.method == 'POST':
             first = True
+            drop_table()
             uploaded_file = request.FILES['document']
             lines = uploaded_file.readlines()
             for line in lines:
@@ -49,6 +51,7 @@ def uploads(request):
         messages.success(request, 'Error verifique el archivo')
         return render(request, 'actividades_economicas/upload.html')
 
+
 # def para inserta valores table
 @csrf_exempt
 def insert_value(values):
@@ -64,6 +67,15 @@ def insert_value(values):
         cursor.execute(sql, model)
     except Exception as e:
         resultInvalid.append(values)
+        print(e)
+
+
+def drop_table():
+    try:
+        cursor = connection.cursor()
+        sql = 'TRUNCATE table actividad_economica_actividad_economica'
+        cursor.execute(sql)
+    except Exception as e:
         print(e)
 
 

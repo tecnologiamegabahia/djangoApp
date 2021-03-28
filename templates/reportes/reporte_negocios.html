@@ -1,0 +1,170 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Lista de Usuario  {% endblock title %}
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+    <div class="container mt--8 pb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 col-md-12">
+                <div class="card bg-secondary border-0">
+                    <div class="card-header">
+                        <h1>Reporte de Negocios</h1>
+                    </div>
+                    <div class="card-body px-lg-5 py-lg-5">
+                        <div class="row">
+                            <div class="col-6">
+                                <span>Actividad Economica</span>
+                                <select style="margin-top: 10px" name="nivel1" id="nivel1" class="form-control">
+                                    <option value="0">-------</option>
+                                    {% for item in nivel1 %}
+                                        <option value="{{ item.CODIGO }}"> {{ item.DESCRIPCION }}</option>
+                                    {% endfor %}
+                                </select>
+
+                                <select style="margin-top: 10px" name="nivel2" id="nivel2" class="form-control">
+                                    <option value="0">-------</option>
+                                    {% for item in nivel2 %}
+                                        <option value="{{ item.CODIGO }}"
+                                                data-chained="{{ item.CODIGO_PADRE }}"> {{ item.DESCRIPCION }}</option>
+                                    {% endfor %}
+                                </select>
+
+                                <select style="margin-top: 10px" name="nivel3" id="nivel3" class="form-control">
+                                    <option value="0">-------</option>
+                                    {% for item in nivel3 %}
+                                        <option value="{{ item.CODIGO }}"
+                                                data-chained="{{ item.CODIGO_PADRE }}"> {{ item.DESCRIPCION }}</option>
+                                    {% endfor %}
+                                </select>
+
+                                <select style="margin-top: 10px" name="nivel4" id="nivel4" class="form-control">
+                                    <option value="0">-------</option>
+                                    {% for item in nivel4 %}
+                                        <option value="{{ item.CODIGO }}"
+                                                data-chained="{{ item.CODIGO_PADRE }}"> {{ item.DESCRIPCION }}</option>
+                                    {% endfor %}
+                                </select>
+
+                                <select style="margin-top: 10px" name="nivel5" id="nivel5" class="form-control">
+                                    <option value="0">-------</option>
+                                    {% for item in nivel5 %}
+                                        <option value="{{ item.CODIGO }}"
+                                                data-chained="{{ item.CODIGO_PADRE }}"> {{ item.DESCRIPCION }}</option>
+                                    {% endfor %}
+                                </select>
+
+                                <select style="margin-top: 10px" name="nivel6" id="nivel6" class="form-control">
+                                    <option value="0">-------</option>
+                                    {% for item in nivel6 %}
+                                        <option value="{{ item.CODIGO }}"
+                                                data-chained="{{ item.CODIGO_PADRE }}"> {{ item.DESCRIPCION }}</option>
+                                    {% endfor %}
+                                </select>
+
+                                <select style="margin-top: 10px" name="nivel7" id="nivel7" class="form-control">
+                                    <option value="0">-------</option>
+                                    {% for item in nivel7 %}
+                                        <option value="{{ item.CODIGO }}"
+                                                data-chained="{{ item.CODIGO_PADRE }}"> {{ item.DESCRIPCION }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <span>Ciudad</span>
+                                <select style="margin-top: 10px" name="nivelUbicacion1" id="nivelUbicacion1"
+                                        class="form-control">
+                                    <option value="0">-------</option>
+                                    {% for item in nivelUbicacion1 %}
+                                        <option value="{{ item.CODIGO }}"> {{ item.DESCRIPCION }}</option>
+                                    {% endfor %}
+                                </select>
+                                <select style="margin-top: 10px" name="nivelUbicacion2" id="nivelUbicacion2"
+                                        class="form-control">
+                                    <option value="0">-------</option>
+                                    {% for item in nivelUbicacion2 %}
+                                        <option value="{{ item.CODIGO }}"
+                                                data-chained="{{ item.CODIGO_PADRE }}"> {{ item.DESCRIPCION }}</option>
+                                    {% endfor %}
+                                </select>
+                                <select style="margin-top: 10px" name="nivelUbicacion3" id="nivelUbicacion3"
+                                        class="form-control">
+                                    <option value="0">-------</option>
+                                    {% for item in nivelUbicacion3 %}
+                                        <option value="{{ item.CODIGO }}"
+                                                data-chained="{{ item.CODIGO_PADRE }}"> {{ item.DESCRIPCION }}</option>
+                                    {% endfor %}
+                                </select>
+                                <select style="margin-top: 10px" name="nivelUbicacion4" id="nivelUbicacion4"
+                                        class="form-control">
+                                    <option value="0">-------</option>
+                                    {% for item in nivelUbicacion4 %}
+                                        <option value="{{ item.CODIGO }}"
+                                                data-chained="{{ item.CODIGO_PADRE }}"> {{ item.DESCRIPCION }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-6" style="margin-top: 10px">
+                                <span>Tipo de contribuyente</span>
+                                <select name="Contribuyente" style="margin-top: 10px" id="Contribuyente"
+                                        class="form-control">
+                                    <option value="">----Elija----</option>
+                                    <option value="PJR">Persona Juridica</option>
+                                    <option value="PNL">Persona Natural</option>
+                                </select>
+                            </div>
+                            <div class="col-6" style="margin-top: 10px">
+                                <span>Estado Ruc</span>
+                                <select name="Contribuyente" style="margin-top: 10px" id="Contribuyente"
+                                        class="form-control">
+                                    <option value="">----Elija----</option>
+                                    <option value="ACT">Activo</option>
+                                    <option value="PAS">Inactivo</option>
+                                </select>
+                            </div>
+                            <div class="col-6" style="margin-top: 10px">
+                                <span>Fecha Actualizacion Ruc</span>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="col-6" style="margin-top: 10px">
+                                <input type="submit" class="btn btn-primary" type="button"
+                                       value="Buscar" style="margin-top: 25px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        $(function () {
+            $("#nivel2").chained("#nivel1");
+        })
+        $(function () {
+            $("#nivel3").chained("#nivel2");
+        })
+        $(function () {
+            $("#nivel4").chained("#nivel3");
+        })
+        $(function () {
+            $("#nivel5").chained("#nivel4");
+        })
+        $(function () {
+            $("#nivel6").chained("#nivel5");
+        })
+        $(function () {
+            $("#nivel7").chained("#nivel6");
+        })
+        $(function () {
+            $("#nivelUbicacion2").chained("#nivelUbicacion1");
+        })
+        $(function () {
+            $("#nivelUbicacion3").chained("#nivelUbicacion2");
+        })
+        $(function () {
+            $("#nivelUbicacion4").chained("#nivelUbicacion3");
+        })
+    </script>
+{% endblock %}

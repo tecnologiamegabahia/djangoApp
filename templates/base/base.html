@@ -1,4 +1,4 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,6 +21,7 @@
     <!-- Page plugins -->
     <!-- Argon CSS -->
     <link rel="stylesheet" href="/static/assets/css/argon.css?v=1.2.0" type="text/css">
+
     <!-- Specific CSS goes HERE -->
     {% block stylesheets %}{% endblock stylesheets %}
 
@@ -43,6 +44,7 @@
 {% block javascripts %}{% endblock javascripts %}
 
 <script src="/static/assets/js/argon.js?v=1.2.0"></script>
+
 <script>
     function ocultar() {
         document.getElementById('obj1').style.display = 'none';

@@ -24,6 +24,7 @@ def uploads(request):
     resultValid = []
     try:
         if request.method == 'POST':
+            drop_table()
             first = True
             uploaded_file = request.FILES['document']
             lines = uploaded_file.readlines()
@@ -54,7 +55,7 @@ def uploads(request):
 @csrf_exempt
 def insert_value(values):
     try:
-        model = [cipher.encrypt(values[0]),
+        model = [values[0],
                  values[1],
                  values[2],
                  values[4],
@@ -76,10 +77,19 @@ def insert_value(values):
                  values[20],
                  ]
         cursor = connection.cursor()
-        sql = "INSERT INTO app_plan.establecimiento_establecimiento(NUMERO_RUC, NUMERO_ESTABLECIMIENTO, NOMBRE_FANTASIA_COMERCIAL, FECHA_INSCRIPCION, FECHA_INICIO_ACTIVIDADES, FECHA_REINICIO_ACTIVIDADES, FECHA_ACTUALIZACION, FECHA_CIERRE, ESTADO_ESTABLECIMIENTO, UBICACION_GEOGRAFICA, BARRIO, CALLE, INTERSECCION, NOMBRE_EDIFICIO, NUMERO, NUMERO_OFICINA, NUMERO_PISO, REFERENCIA_UBICACION, TIPO_ESTABLECIMIENTO, FECHA_VERIFICACION, created_at, updated_at, state)VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, current_timestamp(6), current_timestamp(6), '1');"
+        sql = "INSERT INTO establecimiento_establecimiento(NUMERO_RUC, NUMERO_ESTABLECIMIENTO, NOMBRE_FANTASIA_COMERCIAL, FECHA_INSCRIPCION, FECHA_INICIO_ACTIVIDADES, FECHA_REINICIO_ACTIVIDADES, FECHA_ACTUALIZACION, FECHA_CIERRE, ESTADO_ESTABLECIMIENTO, UBICACION_GEOGRAFICA, BARRIO, CALLE, INTERSECCION, NOMBRE_EDIFICIO, NUMERO, NUMERO_OFICINA, NUMERO_PISO, REFERENCIA_UBICACION, TIPO_ESTABLECIMIENTO, FECHA_VERIFICACION, created_at, updated_at, state)VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, current_timestamp(6), current_timestamp(6), '1');"
         cursor.execute(sql, model)
     except Exception as e:
         resultInvalid.append(values)
+        print(e)
+
+
+def drop_table():
+    try:
+        cursor = connection.cursor()
+        sql = 'TRUNCATE table establecimiento_establecimiento'
+        cursor.execute(sql)
+    except Exception as e:
         print(e)
 
 
@@ -128,7 +138,6 @@ def home(request):
 
 # def descargar archivos existentes
 def download(request, path):
-    print(path)
     file_path = os.path.join(settings.MEDIA_ROOT + 'establecimientos/', path)
     if os.path.exists(file_path):
         with open(file_path, 'rb') as fh:
@@ -142,7 +151,6 @@ class DescargarArchivoView(View):
 
     def post(self, request, *args, **kwargs):
         form = request.POST['valuer']
-        print(form)
         file_path = os.path.join(settings.MEDIA_ROOT + 'establecimientos/', form)
         with open(file_path, 'rb') as fh:
             response = HttpResponse(fh.read(), content_type='text/plain')

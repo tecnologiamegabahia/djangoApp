@@ -25,6 +25,7 @@ def uploads(request):
     try:
         if request.method == 'POST':
             first = True
+            drop_table()
             uploaded_file = request.FILES['document']
             lines = uploaded_file.readlines()
             for line in lines:
@@ -35,7 +36,6 @@ def uploads(request):
                     continue
                 else:
                     values = line.decode(encoding='latin-1').split("\t")
-                    print(values)
                     insert_value(values)
                     resultValid.append(values)
 
@@ -51,6 +51,15 @@ def uploads(request):
         return render(request, 'medios_contacto/upload.html')
 
 
+def drop_table():
+    try:
+        cursor = connection.cursor()
+        sql = 'TRUNCATE table medio_contacto_medio_contacto'
+        cursor.execute(sql)
+    except Exception as e:
+        print(e)
+
+
 # def para inserta valores table
 @csrf_exempt
 def insert_value(values):
@@ -58,7 +67,7 @@ def insert_value(values):
         model = [values[0],
                  values[1],
                  values[2],
-                 cipher.encrypt(values[3]),
+                 values[3],
                  values[4]
                  ]
         cursor = connection.cursor()
@@ -114,7 +123,6 @@ def home(request):
 
 # def descargar archivos existentes
 def download(request, path):
-    print(path)
     file_path = os.path.join(settings.MEDIA_ROOT + 'medios_contacto/', path)
     if os.path.exists(file_path):
         with open(file_path, 'rb') as fh:
@@ -128,7 +136,6 @@ class DescargarArchivoView(View):
 
     def post(self, request, *args, **kwargs):
         form = request.POST['valuer']
-        print(form)
         file_path = os.path.join(settings.MEDIA_ROOT + 'medios_contacto/', form)
         with open(file_path, 'rb') as fh:
             response = HttpResponse(fh.read(), content_type='text/plain')

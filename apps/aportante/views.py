@@ -25,6 +25,7 @@ def uploads(request):
     try:
         if request.method == 'POST':
             first = True
+            drop_table()
             uploaded_file = request.FILES['document']
             lines = uploaded_file.readlines()
             for line in lines:
@@ -57,7 +58,7 @@ def insert_value(values):
     try:
         model = [cipher.encrypt(values[0]),
                  values[1],
-                 cipher.encrypt(values[2]),
+                 values[2],
                  values[3],
                  values[4],
                  cipher.encrypt(values[5]),
@@ -81,6 +82,15 @@ def insert_value(values):
         cursor.execute(sql, model)
     except Exception as e:
         resultInvalid.append(values)
+        print(e)
+
+
+def drop_table():
+    try:
+        cursor = connection.cursor()
+        sql = 'TRUNCATE table aportante_aportante'
+        cursor.execute(sql)
+    except Exception as e:
         print(e)
 
 
