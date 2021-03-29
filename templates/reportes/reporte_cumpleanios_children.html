@@ -11,15 +11,15 @@
         </div>
         <div class="col-10 col-md-10 col-lg-10">
             <div class="card card-frame">
-             <div class="card-header">
-                <h4>REPORTE CUMPLEAÑOS CHILDREN</h4>
-            </div>
+                <div class="card-header">
+                    <h4>REPORTE CUMPLEAÑOS CHILDREN</h4>
+                </div>
                 <div class="card-body">
                     <form method="post" action="{% url 'reportes:dowload_report' %}">
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-2">
-                                <span>Dia</span>
+                                <span>Dia</span><span class="text text-red">*</span>
                                 {% with ''|center:31 as range %}
                                     <select class="form-control" name="dia">
                                     {% for _ in range %}
@@ -29,7 +29,7 @@
                                 </select>
                             </div>
                             <div class="col-2">
-                                <span>Mes</span>
+                                <span>Mes</span><span class="text text-red">*</span>
                                 {% with ''|center:12 as range %}
                                     <select class="form-control" name="mes">
                                     {% for _ in range %}
@@ -39,15 +39,19 @@
                                 </select>
                             </div>
                             <div class="col-2">
-                                <span>Genero</span>
+                                <span>Genero</span><span class="text text-red">*</span>
                                 <select class="form-control" name="sexo">
                                     <option value="FEMENINO">FEMENINO</option>
                                     <option value="MASCULINO">MASCULINO</option>
                                 </select>
                             </div>
                             <div class="col-3">
-                                <span>Edad</span>
-                                <input type="number" class="form-control" name="edad" max="99"/>
+                                <span>Edad</span><span class="text text-red">*</span>
+                                <input type="number" class="form-control" name="edad" required max="99"/>
+                            </div>
+                            <div class="col-3">
+                                <span>Ciudad</span>
+                                <input type="text" placeholder="Opcional" class="form-control" name="ciudad" autocomplete="off"/>
                             </div>
                             <div class="col-3">
                                 <input type="submit" class="btn btn-primary" type="button"

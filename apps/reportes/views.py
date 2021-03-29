@@ -6,10 +6,8 @@ from django.conf import settings
 from apps.cliente.cryp import AESCipher
 from apps.actividad_economica.models import actividad_economica
 from django.views.generic import ListView, TemplateView
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from apps.ubicacione_geografica.models import ubicacion_goegrafica
+from datetime import datetime
 
 # Create your views here.
 
@@ -101,12 +99,14 @@ def reporte_cumpleanios_children(request):
     dia = form['dia']
     mes = form['mes']
     edad = form['edad']
+    ciudad = form['ciudad']
+
     cursor.execute(
-        "CALL reporte_cumpleanios_children('" + mes + "','" + dia + "','" + sexo + "','" + edad + "')")
+        "CALL reporte_cumpleanios_children('" + mes + "','" + dia + "','" + sexo + "','" + edad + "','" + ciudad + "')")
+
     rows = cursor.fetchall()
     list = []
     for row in rows:
-        print(row[17])
         try:
             rowss = [(cipher.decrypt(row[0])),
                      (row[1]),
@@ -169,14 +169,13 @@ def reporte_cumpleanios_children(request):
         except IndexError as e:
             break
         list.append(rowss)
-
+    print(list)
     for row in list:
         row_num += 1
         for col_num in range(len(row)):
             ws.write(row_num, col_num, row[col_num], font_style)
 
     wb.save(response)
-    print(cipher.decrypt('XPRch7r0tUkAw7lifeeN11l9LG8ipJC7iU9Sg1fqC6o='))
     return response
 
 
@@ -237,23 +236,6 @@ def conteo_empleados(request):
 class form_view_combo(TemplateView):
     template_name = 'reportes/reporte_negocios.html'
 
-    @method_decorator(csrf_exempt)
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        data = {}
-        try:
-            action = request.POST['action']
-            if action == 'searchdata':
-                pass
-            else:
-                data['error'] = 'ha ocurrido un error'
-        except Exception as e:
-            data['error'] = str(e)
-        return JsonResponse(data, safe=False)
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['nivel1'] = actividad_economica.objects.filter(NIVEL__contains='1')
@@ -269,3 +251,8 @@ class form_view_combo(TemplateView):
         context['nivelUbicacion4'] = ubicacion_goegrafica.objects.filter(NIVEL__contains='4')
 
         return context
+
+
+def reporte_negocio(request):
+
+    return True

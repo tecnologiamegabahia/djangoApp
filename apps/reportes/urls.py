@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf.urls import url
 from django.urls import path
 from .views import reporte_cumpleanios_children, index, conteo_cliente, conteo_contribuyentes_naturales, \
-    conteo_contribuyentes_juridicos, conteo_empleados, form_view_combo
+    conteo_contribuyentes_juridicos, conteo_empleados, form_view_combo, reporte_negocio
 
 urlpatterns = [
     url(r'^index$', login_required(index), name='index'),
@@ -12,5 +12,7 @@ urlpatterns = [
     url(r'^conteo_contribuyentes_juridicos/$', login_required(conteo_contribuyentes_juridicos),
         name='conteo_contribuyentes_juridicos'),
     url(r'^conteo_empleados/$', login_required(conteo_empleados), name='conteo_empleados'),
-    path('combo/', form_view_combo.as_view(), name='combo')
+    path('combo/', form_view_combo.as_view(), name='combo'),
+    path('reporte_negocio/', login_required(reporte_negocio), name='reporte_negocio')
+
 ]
