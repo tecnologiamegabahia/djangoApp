@@ -1,0 +1,39 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Reporte  {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-2 col-md-2 col-lg-2">
+        </div>
+        <div class="col-10 col-md-10 col-lg-10">
+            <div class="card card-frame">
+                <div class="card-header">
+                    <h4>REPORTE CUMPLEAÑOS CHILDREN</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'reportes:dowload_report' %}">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-2">
+                                cedula de Identidad:
+                               <input type="text" class="form-control" placeholder="Ingrese Cedula">
+                            </div>
+
+                            <div class="col-3">
+                                <input type="submit" class="btn btn-primary" type="button"
+                                       value="Buscar" style="margin-top: 25px">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-2 col-md-2 col-lg-2">
+        </div>
+    </div>
+
+{% endblock %}
