@@ -563,3 +563,282 @@ def reporte_cumpleanios_children_ci(request):
 
     wb.save(response)
     return response
+
+
+def reporte_negocio_ruc(request):
+    form = request.POST or None
+    ci_p = form['ci_p']
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="reporte_negocios' + ci_p + '.xls"'
+    cursor = connection.cursor()
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('reporte_cumpleanios_children')
+
+    # Sheet header, first row
+    row_num = 0
+
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = [
+        'RAZON_SOCIAL',
+        'NOMBRE_FANTASIA_COMERCIAL',
+        'FECHA_INSCRIPCION_RUC',
+        'FECHA_INICIO_ACTIVIDADES',
+        'OBLIGADO',
+        'FECHA_NACIMIENTO',
+        'FECHA_REINICIO_ACTIVIDADES',
+        'TELEFONO',
+        'CORREO_ELECTRONICO',
+        'ACTIVIDAD_ECONOMICA_PRINCIPAL',
+        'ESTADO_PERSONA_NATURAL',
+        'DESCRIPCION_LUGAR_UBICACION',
+        'CODIGO_ECONOMICA_PRINCIPAL',
+        'ACTIVIDAD_ECONOMICA_PRINCIPAL',
+        'CODIGO_TIPO_CONTACTO_1',
+        'CELULAR_1',
+        'CORREO_1',
+        'CODIGO_TIPO_CONTACTO_2',
+        'CELULAR_2',
+        'CORREO_2',
+        'CODIGO_TIPO_CONTACTO_3',
+        'CELULAR_3',
+        'CORREO_3',
+        'CODIGO_TIPO_CONTACTO_4',
+        'CELULAR_4',
+        'CORREO_4',
+        'CODIGO_TIPO_CONTACTO_5',
+        'CELULAR_5',
+        'CORREO_5',
+        'CODIGO_TIPO_CONTACTO_6',
+        'CELULAR_6',
+        'CORREO_6',
+        'CODIGO_TIPO_CONTACTO_7',
+        'CELULAR_7',
+        'CORREO_7',
+        'CODIGO_TIPO_CONTACTO_8',
+        'CELULAR_8',
+        'CORREO_8',
+        'CODIGO_TIPO_CONTACTO_9',
+        'CELULAR_9',
+        'CORREO_9',
+        'CODIGO_TIPO_CONTACTO_10',
+        'CELULAR_10',
+        'CORREO_10'
+    ]
+
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+
+    # Sheet body, remaining rows
+    font_style = xlwt.XFStyle()
+
+    cursor.execute(
+        "CALL reporte_negocios_ruc('" + ci_p + "')")
+
+    rows = cursor.fetchall()
+    list = []
+    for row in rows:
+        try:
+            rowss = [(cipher.decrypt(row[0])),
+                     (row[1]),
+                     (cipher.decrypt(row[2])),
+                     (cipher.decrypt(row[3])),
+                     (row[4]),
+                     (cipher.decrypt(row[5])),
+                     (row[6]),
+                     (cipher.decrypt(row[7])),
+                     (cipher.decrypt(row[8])),
+                     (row[9]),
+                     (row[10]),
+                     (row[11]),
+                     (row[12]),
+                     (row[13]),
+                     (row[14]),
+                     (row[15]),
+                     (row[16]),
+                     (row[17]),
+                     (row[18]),
+                     (row[19]),
+                     (row[20]),
+                     (row[21]),
+                     (row[22]),
+                     (row[23]),
+                     (row[24]),
+                     (row[25]),
+                     (row[26]),
+                     (row[27]),
+                     (row[28]),
+                     (row[29]),
+                     (row[30]),
+                     (row[31]),
+                     (row[32]),
+                     (row[33]),
+                     (row[34]),
+                     (row[35]),
+                     (row[36]),
+                     (row[37]),
+                     (row[38]),
+                     (row[39]),
+                     (row[40]),
+                     (row[41]),
+                     (row[42]),
+                     (row[43])]
+        except IndexError as e:
+            break
+        list.append(rowss)
+    print(list)
+    for row in list:
+        row_num += 1
+        for col_num in range(len(row)):
+            ws.write(row_num, col_num, row[col_num], font_style)
+
+    wb.save(response)
+    return response
+
+
+def reporte_negocio_ruc_view(request):
+    return render(request, 'reportes/reporte_negocios_ruc.html')
+
+
+def reporte_empleados(request):
+    return render(request, 'reportes/reporte_empleados.html')
+
+
+def reporte_empleados_ci(request):
+    return render(request, 'reportes/reporte_empleados_ci.html')
+
+
+def reporte_empleados_busqueda(request):
+    form = request.POST or None
+    fechaI_p = form['fechaI_p']
+    fi = datetime.strptime(fechaI_p, "%Y-%m-%d").strftime("%Y-%m-%d")
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="reporte_empleados.xls"'
+    cursor = connection.cursor()
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('reporte_empleados')
+
+    # Sheet header, first row
+    row_num = 0
+
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = [
+        'CEDULA_DEL_AFILIADO',
+        'APELLIDOS_Y_NOMBRES_AFILIADO',
+        'DIRECCION_DOMICILIO_AFILIADO',
+        'TELEFONO_DEL_DOMICILIO_AFILIADO',
+        'NUMERO_CELULAR_DEL_AFILIADO',
+        'EMAIL_DE_CONTACTO_CON_EL_AFILIADO',
+        'SUELDO_O_INGRESOS_MENSUALES',
+        'FECHA_INGRESO_AL_ULTIMO_TRABAJO',
+        'CARGO_U_OCUPACION_DEL_AFILIADO',
+        'FECHA_NACIMIENTO',
+        'AÑOS_CUMPLIDOS',
+        'SEXO'
+    ]
+
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+
+    # Sheet body, remaining rows
+    font_style = xlwt.XFStyle()
+    cursor.execute("CALL reporte_empleados ('" + fi + "')")
+    rows = cursor.fetchall()
+    list = []
+
+    for row in rows:
+        try:
+            rowss = [(row[0]),
+                     (cipher.decrypt(row[1])),
+                     (row[2]),
+                     (row[3]),
+                     (cipher.decrypt(row[4])),
+                     (cipher.decrypt(row[5])),
+                     (cipher.decrypt(row[6])),
+                     (row[7]),
+                     (row[8]),
+                     (row[9]),
+                     (row[10]),
+                     (row[11])
+                     ]
+        except IndexError as e:
+            break
+        list.append(rowss)
+    print(list)
+    for row in list:
+        row_num += 1
+        for col_num in range(len(row)):
+            ws.write(row_num, col_num, row[col_num], font_style)
+
+    wb.save(response)
+    return response
+
+
+def reporte_empleados_busqueda_ci(request):
+    form = request.POST or None
+    ci_p = form['ci_p']
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="reporte_empleados_' + ci_p + '.xls"'
+    cursor = connection.cursor()
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('reporte_empleados')
+
+    # Sheet header, first row
+    row_num = 0
+
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = [
+        'CEDULA_DEL_AFILIADO',
+        'APELLIDOS_Y_NOMBRES_AFILIADO',
+        'DIRECCION_DOMICILIO_AFILIADO',
+        'TELEFONO_DEL_DOMICILIO_AFILIADO',
+        'NUMERO_CELULAR_DEL_AFILIADO',
+        'EMAIL_DE_CONTACTO_CON_EL_AFILIADO',
+        'SUELDO_O_INGRESOS_MENSUALES',
+        'FECHA_INGRESO_AL_ULTIMO_TRABAJO',
+        'CARGO_U_OCUPACION_DEL_AFILIADO',
+        'FECHA_NACIMIENTO',
+        'AÑOS_CUMPLIDOS',
+        'SEXO'
+    ]
+
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+
+    # Sheet body, remaining rows
+    font_style = xlwt.XFStyle()
+    cursor.execute("CALL reporte_empleados_ci ('" + ci_p + "')")
+    rows = cursor.fetchall()
+    list = []
+
+    for row in rows:
+        try:
+            rowss = [(row[0]),
+                     (cipher.decrypt(row[1])),
+                     (row[2]),
+                     (row[3]),
+                     (cipher.decrypt(row[4])),
+                     (cipher.decrypt(row[5])),
+                     (cipher.decrypt(row[6])),
+                     (row[7]),
+                     (row[8]),
+                     (row[9]),
+                     (row[10]),
+                     (row[11])
+                     ]
+        except IndexError as e:
+            break
+        list.append(rowss)
+    print(list)
+    for row in list:
+        row_num += 1
+        for col_num in range(len(row)):
+            ws.write(row_num, col_num, row[col_num], font_style)
+
+    wb.save(response)
+    return response

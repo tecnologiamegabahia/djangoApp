@@ -12,15 +12,15 @@
         <div class="col-10 col-md-10 col-lg-10">
             <div class="card card-frame">
                 <div class="card-header">
-                    <h4>REPORTE CUMPLEAÑOS CHILDREN ESPECIFICO</h4>
+                    <h4>REPORTE NEGOCIOS RUC</h4>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{% url 'reportes:dowload_report_ci' %}">
+                    <form method="post" action="{% url 'reportes:reporte_negocio_ruc' %}">
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-4">
-                                Cedula de Identidad:
-                               <input type="text" class="form-control" placeholder="Ingrese Cedula" name="ci_p" autocomplete="off" required>
+                                Numero de RUC:
+                               <input type="text" class="form-control" placeholder="Ingrese RUC" name="ci_p" autocomplete="off" required>
                             </div>
 
                             <div class="col-3">

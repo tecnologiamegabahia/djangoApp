@@ -12,20 +12,29 @@
         <div class="col-10 col-md-10 col-lg-10">
             <div class="card card-frame">
                 <div class="card-header">
-                    <h4>REPORTE CUMPLEAÑOS CHILDREN ESPECIFICO</h4>
+                    <h4>REPORTE EMPLEADOS</h4>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{% url 'reportes:dowload_report_ci' %}">
+                    <form method="post" action="{% url 'reportes:reporte_empleados_busqueda' %}">
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-4">
-                                Cedula de Identidad:
-                               <input type="text" class="form-control" placeholder="Ingrese Cedula" name="ci_p" autocomplete="off" required>
+                                FECHA INICIAL:
+                                <input type="date" class="form-control" name="fechaI_p" required>
                             </div>
 
                             <div class="col-3">
                                 <input type="submit" class="btn btn-primary" type="button"
                                        value="Buscar" style="margin-top: 25px">
+                            </div>
+                            <div class="col-3" >
+                                <div class="card card-pricing bg-success border-0 text-center mb-4">
+
+                                    <div class="card-body">
+                                        <span><h4>LA BÚSQUEDA SE REALIZA DESDE LA FECHA INICIAL HASTA EL DÍA EN CURSO</h4></span>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -33,6 +42,7 @@
             </div>
         </div>
         <div class="col-2 col-md-2 col-lg-2">
+
         </div>
     </div>
 

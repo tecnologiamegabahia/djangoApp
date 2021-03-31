@@ -36,7 +36,6 @@ def uploads(request):
                     continue
                 else:
                     values = line.decode(encoding='latin-1').split("\t")
-                    print(values)
                     insert_value(values)
                     resultValid.append(values)
 
@@ -56,9 +55,9 @@ def uploads(request):
 @csrf_exempt
 def insert_value(values):
     try:
-        model = [cipher.encrypt(values[0]),
+        model = [values[0],
                  values[1],
-                 values[2],
+                 cipher.encrypt(values[2]),
                  values[3],
                  values[4],
                  cipher.encrypt(values[5]),
@@ -71,7 +70,7 @@ def insert_value(values):
                  cipher.encrypt(values[12]),
                  cipher.encrypt(values[13]),
                  cipher.encrypt(values[14]),
-                 cipher.encrypt(values[15]),
+                 values[15],
                  values[16],
                  values[17],
                  values[18],
