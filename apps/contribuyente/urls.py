@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from apps.contribuyente.views import uploads, verificarArchivos, home, DescargarArchivoView
+from apps.contribuyente.views import uploads, verificarArchivos, home, DescargarArchivoView, drop_table
 from django.conf.urls import url
 
 from django.views.static import serve
@@ -13,4 +13,6 @@ urlpatterns = [
     url(r'^lista1/$', serve, {'document_root': settings.MEDIA_ROOT}),
     url(r'^download/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     url(r'^archivo', DescargarArchivoView.as_view(), name='archivo_post'),
+    url(r'^delete', login_required(drop_table), name='delete'),
+
 ]

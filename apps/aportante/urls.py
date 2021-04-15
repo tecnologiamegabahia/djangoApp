@@ -1,4 +1,4 @@
-from apps.aportante.views import uploads, verificarArchivos, DescargarArchivoView
+from apps.aportante.views import uploads, verificarArchivos, DescargarArchivoView,drop_table
 from django.conf.urls import url
 
 from django.views.static import serve
@@ -11,4 +11,6 @@ urlpatterns = [
     url(r'^lista1/$', serve, {'document_root': settings.MEDIA_ROOT}),
     url(r'^download/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     url(r'^archivo', DescargarArchivoView.as_view(), name='archivo_post'),
+    url(r'^delete', login_required(drop_table), name='delete'),
+
 ]

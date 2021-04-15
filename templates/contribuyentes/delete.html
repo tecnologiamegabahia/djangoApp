@@ -14,14 +14,12 @@
                 <div class="col-lg-6 col-md-8">
                     <div class="card bg-secondary border-0">
                         <div class="card-header bg-transparent">
-                            <h2 class="text-uppercase ls-1 py-3 mb-0">Carga de Archivo de Clientes</h2>
+                            <h2 class="text-uppercase ls-1 py-3 mb-0">Eliminación</h2>
                         </div>
                         <div class="card-body px-lg-5 py-lg-5">
-                            <form method="post" enctype="multipart/form-data">{% csrf_token %}
-                                <input type="file" name="document" class="form-control">
+                            <form action="{% url 'contribuyentes:upload' %}" method="get" enctype="multipart/form-data">
                                 <br>
-                                <button type="submit" onclick="mostrar()" class="form-control btn btn-success">Subir
-                                        Archivo
+                                <button type="submit" class="form-control btn btn-success">Volver a Contribuyentes 
                                     </button>
                             </form>
                         </div>
@@ -32,32 +30,6 @@
                             {{ menssage }}
                         </div>
                         {% endfor %} {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-12">
-        <br>
-        <br>
-        <br>
-    </div>
-    <div class="col-12">
-        <div class="container mt--8 pb-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-6 col-md-8">
-                    <div class="card bg-secondary border-0">
-                        <div class="card-header bg-transparent">
-                            <h2 class="text-uppercase ls-1 py-3 mb-0">Eliminar datos base clientes </h2>
-                        </div>
-                        <div class="card-body px-lg-5 py-lg-5">
-                            <form action="{% url 'clientes:delete' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
-                                <br>
-                                <button type="submit" onclick="return confirm('¿Desea continuar?')" class="form-control btn btn-success">Eliminar
-                                        Archivo
-                                    </button>
-                            </form>
-                        </div>
                     </div>
                 </div>
             </div>

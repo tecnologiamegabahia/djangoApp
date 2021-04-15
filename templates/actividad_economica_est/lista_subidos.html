@@ -1,51 +1,44 @@
-{% extends 'base/base.html' %}
-
-{% block title %} Cargar Actividad Economica Establecimientos  {% endblock title %}
+{% extends 'base/base.html' %} {% block title %} Cargar Actividad Economica Establecimientos {% endblock title %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
-
-{% block content %}
+{% block stylesheets %}{% endblock stylesheets %} {% block content %}
 <div class="row">
     {% csrf_token %}
-  <div class="col-2 col-md-2 col-lg-2">
-        </div>
-        <div class="col-10 col-md-10 col-lg-10">
-            <div class="card card-frame">
-                <div class="card-body">
-                    <h2>Archivos Actividad Economica Establecimientos</h2>
-                </div>
+    <div class="col-2 col-md-2 col-lg-2">
+    </div>
+    <div class="col-10 col-md-10 col-lg-10">
+        <div class="card card-frame">
+            <div class="card-body">
+                <h2>Archivos Actividad Economica Establecimientos</h2>
             </div>
         </div>
+    </div>
     <div class="col-2 col-md-2 col-lg-2">
     </div>
     <div class="col-10 col-md-10 col-lg-10">
         <div class="card">
             <table class="table table-responsive-md table-responsive-lg">
                 <thead>
-                <tr>
-                    <td>Nombre</td>
-                </tr>
+                    <tr>
+                        <td>Nombre</td>
+                    </tr>
                 </thead>
                 <tbody>
-                {% if ficheros %}
-                {% for fichero in ficheros %}
-                <tr>
-                    <td>{{fichero}}</td>
-                    <td>
-                        <form method="post" action="{% url 'actividad_economica_est:archivo_post' %}">
-                            {% csrf_token %}
-                            <input type="text" style="display: none" name="valuer" value="{{fichero}}"/>
+                    {% if ficheros %} {% for fichero in ficheros %}
+                    <tr>
+                        <td>{{fichero}}</td>
+                        <td>
+                            <form method="post" action="{% url 'actividad_economica_est:archivo_post' %}">
+                                {% csrf_token %}
+                                <input type="text" style="display: none" name="valuer" value="{{fichero}}" />
 
-                            <input type="submit"  class="btn btn-primary" type="button"
-                                   value="Descargar Archivo">
-                        </form>
-                    </td>
-                </tr>
-                {% endfor %}
-                {% else %}
-                <h1>No hay registros</h1>
-                {% endif %}
+                                <input type="submit" class="btn btn-primary" type="button" value="Descargar Archivo">
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %} {% else %}
+                    <h1>No hay registros</h1>
+                    {% endif %}
                 </tbody>
             </table>
         </div>
@@ -53,13 +46,10 @@
             <div class="pagination">
                 {%if ficheros.has_previous%}
                 <a href="?page=1">&laquo; Primera &nbsp;</a>
-                <a href="?page={{ficheros.previous_page_number}}"> &nbsp;Anterior&nbsp; </a>
-                {%endif%}
-                <span class="actual"> &nbsp;Página &nbsp;{{ficheros.number}}&nbsp; de &nbsp; {{ficheros.paginator.num_pages}}&nbsp;</span>
-                {%if ficheros.has_next%}
+                <a href="?page={{ficheros.previous_page_number}}"> &nbsp;Anterior&nbsp; </a> {%endif%}
+                <span class="actual"> &nbsp;Página &nbsp;{{ficheros.number}}&nbsp; de &nbsp; {{ficheros.paginator.num_pages}}&nbsp;</span> {%if ficheros.has_next%}
                 <a href="?page={{ficheros.next_page_number}}"> &nbsp;Siguiente &nbsp;</a>
-                <a href="?page={{ficheros.paginator.num_pages}}"> &nbsp;Ultima&raquo;&nbsp; </a>
-                {%endif%}
+                <a href="?page={{ficheros.paginator.num_pages}}"> &nbsp;Ultima&raquo;&nbsp; </a> {%endif%}
             </div>
         </div>
     </div>

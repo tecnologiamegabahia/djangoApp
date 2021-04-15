@@ -25,7 +25,6 @@ def uploads(request):
     try:
         if request.method == 'POST':
             first = True
-            drop_table()
             uploaded_file = request.FILES['document']
             lines = uploaded_file.readlines()
             for line in lines:
@@ -75,22 +74,47 @@ def insert_value(values):
                  values[17],
                  values[18],
                  values[19],
+                 values[0],
+                 values[1],
+                 cipher.encrypt(values[2]),
+                 values[3],
+                 values[4],
+                 cipher.encrypt(values[5]),
+                 cipher.encrypt(values[6]),
+                 cipher.encrypt(values[7]),
+                 values[8],
+                 cipher.encrypt(values[9]),
+                 values[10],
+                 values[11],
+                 cipher.encrypt(values[12]),
+                 cipher.encrypt(values[13]),
+                 cipher.encrypt(values[14]),
+                 values[15],
+                 values[16],
+                 values[17],
+                 values[18],
+                 values[19],
                  ]
         cursor = connection.cursor()
-        sql = "INSERT INTO aportante_aportante(NUMAFI, CODDIVPOL, RUCEMP, CODSUC, CODTIPEMP, NOMEMP, TELSUC, DIRSUC, FAXSUC, APENOMAFI, DIRAFI, TELAFI, CELULAR, EMAIL, SALARIO, FECINGAFI, FECSALAFI, OCUAFI, V19, MES)VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
+        insert = "INSERT INTO aportante_aportante(NUMAFI, CODDIVPOL, RUCEMP, CODSUC, CODTIPEMP, NOMEMP, TELSUC, DIRSUC, FAXSUC, APENOMAFI, DIRAFI, TELAFI, CELULAR, EMAIL, SALARIO, FECINGAFI, FECSALAFI, OCUAFI, V19, MES)VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        update = "ON DUPLICATE KEY UPDATE NUMAFI = %s, CODDIVPOL= %s, RUCEMP= %s, CODSUC= %s, CODTIPEMP= %s, NOMEMP= %s, TELSUC= %s, DIRSUC= %s, FAXSUC= %s, APENOMAFI= %s, DIRAFI= %s, TELAFI= %s, CELULAR= %s, EMAIL= %s, SALARIO= %s, FECINGAFI= %s, FECSALAFI= %s, OCUAFI= %s, V19= %s, MES= %s;"
+        sql = insert + update
         cursor.execute(sql, model)
     except Exception as e:
         resultInvalid.append(values)
         print(e)
 
-
-def drop_table():
+def drop_table(request):
     try:
         cursor = connection.cursor()
         sql = 'TRUNCATE table aportante_aportante'
         cursor.execute(sql)
+        messages.success(request, 'Archivos eliminados correctamente')
+        return render(request, 'aportantes/delete.html')
     except Exception as e:
         print(e)
+        messages.success(request, 'Error al eliminar el archivo')
+        return render(request, 'aportantes/delete.html')
 
 
 # def crear archivo registros invalidos

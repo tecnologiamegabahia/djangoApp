@@ -23,7 +23,6 @@ def uploads(request):
     try:
         if request.method == 'POST':
             first = True
-            drop_table()
             uploaded_file = request.FILES['document']
             lines = uploaded_file.readlines()
             for line in lines:
@@ -107,11 +106,68 @@ def insert_value(values):
                  values[52],
                  values[53],
                  values[54],
+                 values[55],
+                 values[0],
+                 values[1],
+                 '',
+                 cipher.encrypt(values[3]),
+                 values[4],
+                 cipher.encrypt(values[5]),
+                 values[6],
+                 cipher.encrypt(values[7]),
+                 cipher.encrypt(values[8]),
+                 values[9],
+                 cipher.encrypt(values[10]),
+                 cipher.encrypt(values[11]),
+                 cipher.encrypt(values[12]),
+                 values[13],
+                 values[14],
+                 values[15],
+                 values[16],
+                 values[17],
+                 values[18],
+                 values[19],
+                 values[20],
+                 values[21],
+                 values[22],
+                 cipher.encrypt(values[23]),
+                 cipher.encrypt(values[24]),
+                 values[25],
+                 values[26],
+                 values[27],
+                 values[28],
+                 values[29],
+                 values[30],
+                 values[31],
+                 values[32],
+                 values[33],
+                 values[34],
+                 values[35],
+                 values[36],
+                 values[37],
+                 values[38],
+                 values[39],
+                 values[40],
+                 values[41],
+                 values[42],
+                 values[43],
+                 values[44],
+                 values[45],
+                 values[46],
+                 values[47],
+                 values[48],
+                 values[49],
+                 values[50],
+                 values[51],
+                 values[52],
+                 values[53],
+                 values[54],
                  values[55]
                  ]
         cursor = connection.cursor()
-        sql = "INSERT INTO contribuyente_contribuyente(PERSONA_SOCIEDAD, NUMERO_RUC, RUC_ANTERIOR, RAZON_SOCIAL, NOMBRE_FANTASIA_COMERCIAL, FECHA_INSCRIPCION_RUC, LISTA_BLANCA, FECHA_INICIO_ACTIVIDADES, VALOR_PATRIMONIO, OBLIGADO, FECHA_NACIMIENTO, FECHA_CANCELACION, PASAPORTE, NUMERO_REGISTRO_COLEGIO_GREMIO, FECHA_INSCRIPCION_COLEG_GREMIO, CALIFICACION_ARTESANAL, FECHA_CALIFICACION_ARTESANAL, FECHA_SOLICITUD_SUSPENSION, FECHA_SUSPENSION_DEFINITIVA, FECHA_REINICIO_ACTIVIDADES, CALLE, NUMERO, INTERSECCION, TELEFONO, CORREO_ELECTRONICO, REFERENCIA_UBICACION, FECHA_CONSTITUCION, NUMERO_REGISTRO_MERCANTIL, CAPITAL_SUSCRITO, CONSTITUCION, CARGO_REPRESENTANTE_LEGAL, FECHA_NOMBRAMIENTO, ACTIVIDAD_ECONOMICA_PRINCIPAL, AGENTE_RETENCION, CATEGORIA_RISE, CLASE_CONTRIBUYENTE, COMERCIO_EXTERIOR, CONTADOR, ESTADO_PERSONA_NATURAL, ESTADO_SOCIEDAD, ESTRUCTURA_ORGANIZACIONAL, FECHA_ACTUALIZACION, NUMERO_PATRONAL, PAIS, REPRESENTANTE_LEGAL, TIPO_CONTRIBUYENTE, TIPO_VISA, UBICACION_GEOGRAFICA, GERENTE_GENERAL, EMPRESA_PUBLICA, FECHA_NOMBRAMIENTO_GERENTE, ZONA_FRANCA, BIENES_SERVICIOS, OBLIGACION_VENCIDA, FECHA_NOTIFICACION, FECHA_GESTION, created_at, updated_at, state) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, current_timestamp(6), current_timestamp(6), '1');"
-
+        insert = "INSERT INTO contribuyente_contribuyente(PERSONA_SOCIEDAD, NUMERO_RUC, RUC_ANTERIOR, RAZON_SOCIAL, NOMBRE_FANTASIA_COMERCIAL, FECHA_INSCRIPCION_RUC, LISTA_BLANCA, FECHA_INICIO_ACTIVIDADES, VALOR_PATRIMONIO, OBLIGADO, FECHA_NACIMIENTO, FECHA_CANCELACION, PASAPORTE, NUMERO_REGISTRO_COLEGIO_GREMIO, FECHA_INSCRIPCION_COLEG_GREMIO, CALIFICACION_ARTESANAL, FECHA_CALIFICACION_ARTESANAL, FECHA_SOLICITUD_SUSPENSION, FECHA_SUSPENSION_DEFINITIVA, FECHA_REINICIO_ACTIVIDADES, CALLE, NUMERO, INTERSECCION, TELEFONO, CORREO_ELECTRONICO, REFERENCIA_UBICACION, FECHA_CONSTITUCION, NUMERO_REGISTRO_MERCANTIL, CAPITAL_SUSCRITO, CONSTITUCION, CARGO_REPRESENTANTE_LEGAL, FECHA_NOMBRAMIENTO, ACTIVIDAD_ECONOMICA_PRINCIPAL, AGENTE_RETENCION, CATEGORIA_RISE, CLASE_CONTRIBUYENTE, COMERCIO_EXTERIOR, CONTADOR, ESTADO_PERSONA_NATURAL, ESTADO_SOCIEDAD, ESTRUCTURA_ORGANIZACIONAL, FECHA_ACTUALIZACION, NUMERO_PATRONAL, PAIS, REPRESENTANTE_LEGAL, TIPO_CONTRIBUYENTE, TIPO_VISA, UBICACION_GEOGRAFICA, GERENTE_GENERAL, EMPRESA_PUBLICA, FECHA_NOMBRAMIENTO_GERENTE, ZONA_FRANCA, BIENES_SERVICIOS, OBLIGACION_VENCIDA, FECHA_NOTIFICACION, FECHA_GESTION, created_at, updated_at, state) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, current_timestamp(6), current_timestamp(6), '1')"
+        update = "ON DUPLICATE KEY UPDATE PERSONA_SOCIEDAD= %s, NUMERO_RUC= %s, RUC_ANTERIOR= %s, RAZON_SOCIAL= %s, NOMBRE_FANTASIA_COMERCIAL= %s, FECHA_INSCRIPCION_RUC= %s, LISTA_BLANCA= %s, FECHA_INICIO_ACTIVIDADES= %s, VALOR_PATRIMONIO= %s, OBLIGADO= %s, FECHA_NACIMIENTO= %s, FECHA_CANCELACION= %s, PASAPORTE= %s, NUMERO_REGISTRO_COLEGIO_GREMIO= %s, FECHA_INSCRIPCION_COLEG_GREMIO= %s, CALIFICACION_ARTESANAL= %s, FECHA_CALIFICACION_ARTESANAL= %s, FECHA_SOLICITUD_SUSPENSION= %s, FECHA_SUSPENSION_DEFINITIVA= %s, FECHA_REINICIO_ACTIVIDADES= %s, CALLE= %s, NUMERO= %s, INTERSECCION= %s, TELEFONO= %s, CORREO_ELECTRONICO= %s, REFERENCIA_UBICACION= %s, FECHA_CONSTITUCION= %s, NUMERO_REGISTRO_MERCANTIL= %s, CAPITAL_SUSCRITO= %s, CONSTITUCION= %s, CARGO_REPRESENTANTE_LEGAL= %s, FECHA_NOMBRAMIENTO= %s, ACTIVIDAD_ECONOMICA_PRINCIPAL= %s, AGENTE_RETENCION= %s, CATEGORIA_RISE= %s, CLASE_CONTRIBUYENTE= %s, COMERCIO_EXTERIOR= %s, CONTADOR= %s, ESTADO_PERSONA_NATURAL= %s, ESTADO_SOCIEDAD= %s, ESTRUCTURA_ORGANIZACIONAL= %s, FECHA_ACTUALIZACION= %s, NUMERO_PATRONAL= %s, PAIS= %s, REPRESENTANTE_LEGAL= %s, TIPO_CONTRIBUYENTE= %s, TIPO_VISA= %s, UBICACION_GEOGRAFICA= %s, GERENTE_GENERAL= %s, EMPRESA_PUBLICA= %s, FECHA_NOMBRAMIENTO_GERENTE= %s, ZONA_FRANCA= %s, BIENES_SERVICIOS= %s, OBLIGACION_VENCIDA= %s, FECHA_NOTIFICACION= %s, FECHA_GESTION= %s;"
+        sql = insert + update
         cursor.execute(sql, model)
     except Exception as e:
         resultInvalid.append(values)
@@ -125,13 +181,17 @@ def insert_invalid(insert):
     return True
 
 
-def drop_table():
+def drop_table(request):
     try:
         cursor = connection.cursor()
         sql = 'TRUNCATE table contribuyente_contribuyente'
         cursor.execute(sql)
+        messages.success(request, 'Archivos eliminados correctamente')
+        return render(request, 'contribuyentes/delete.html')
     except Exception as e:
         print(e)
+        messages.success(request, 'Error al eliminar el archivo')
+        return render(request, 'contribuyentes/delete.html')
 
 
 def insert_valid(insert):
