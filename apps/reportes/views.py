@@ -845,7 +845,7 @@ def reporte_empleados_busqueda_ci(request):
     wb.save(response)
     return response
 
-directorio='C:/Users/alex/Downloads/holi'
+directorio='/tmp'
 def verificarArchivosTemporales(request):
     with os.scandir(directorio) as ficheros:
         ficheros = [fichero.name for fichero in ficheros if '.upload.' in fichero.name]
