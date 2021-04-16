@@ -8,7 +8,9 @@ from apps.actividad_economica.models import actividad_economica
 from django.views.generic import ListView, TemplateView
 from apps.ubicacione_geografica.models import ubicacion_goegrafica
 from datetime import datetime
-
+import os
+from django.core.paginator import Paginator
+from django.contrib import messages
 # Create your views here.
 
 
@@ -842,3 +844,44 @@ def reporte_empleados_busqueda_ci(request):
 
     wb.save(response)
     return response
+
+directorio='C:/Users/alex/Downloads/holi'
+def verificarArchivosTemporales(request):
+    with os.scandir(directorio) as ficheros:
+        ficheros = [fichero.name for fichero in ficheros if '.upload.' in fichero.name]
+        paginator = Paginator(ficheros, 5)
+        page = request.GET.get('page')
+        page_fichero = paginator.get_page(page)
+        contexto = {'ficheros': page_fichero}
+    return render(request, 'reportes/reporte_lista_archivos_temporales.html', contexto)
+
+
+def eliminarArchivoTemporal(request):
+    form = request.POST['valuer']
+    file_path = os.path.join(directorio, form)
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        messages.success(request, 'Archivo '+form+' Eliminado con éxito!')
+    
+   
+    with os.scandir(directorio) as ficheros:
+        ficheros = [fichero.name for fichero in ficheros if '.upload.' in fichero.name]
+        paginator = Paginator(ficheros, 5)
+        page = request.GET.get('page')
+        page_fichero = paginator.get_page(page)
+        contexto = {'ficheros': page_fichero}
+  
+    return render(request, 'reportes/reporte_lista_archivos_temporales.html', contexto)
+
+def eliminarArchivosTemporales(request):
+    with os.scandir(directorio) as ficheros:
+        ficheros = [fichero.name for fichero in ficheros if '.upload.' in fichero.name]
+        for fichero in ficheros:
+            file_path = os.path.join(directorio, fichero)
+            if os.path.exists(file_path):
+                os.remove(file_path)
+    
+    messages.success(request, 'Archivos  Eliminados con éxito!')
+    
+    
+    return render(request, 'reportes/reporte_lista_archivos_temporales.html')

@@ -4,7 +4,8 @@ from django.urls import path
 from .views import reporte_cumpleanios_children, index, conteo_cliente, conteo_contribuyentes_naturales, \
     conteo_contribuyentes_juridicos, conteo_empleados, form_view_combo, reporte_negocio, \
     reporte_cumpleanios_children_ci, index_ci, reporte_negocio_ruc, reporte_negocio_ruc_view, reporte_empleados, \
-    reporte_empleados_ci, reporte_empleados_busqueda, reporte_empleados_busqueda_ci
+    reporte_empleados_ci, reporte_empleados_busqueda, reporte_empleados_busqueda_ci,verificarArchivosTemporales, \
+    eliminarArchivoTemporal,eliminarArchivosTemporales
 
 urlpatterns = [
     url(r'^index$', login_required(index), name='index'),
@@ -25,5 +26,9 @@ urlpatterns = [
     path('reporte_empleados_busqueda/', login_required(reporte_empleados_busqueda), name='reporte_empleados_busqueda'),
     path('reporte_empleados_busqueda_ci/', login_required(reporte_empleados_busqueda_ci),
          name='reporte_empleados_busqueda_ci'),
-
+    path('reporte_archivos_temporales/', login_required(verificarArchivosTemporales), name='reporte_archivos_temporales'),
+    url(r'remover_archivo_temporal/$', login_required(eliminarArchivoTemporal), name='remover_archivo_temporal'),
+    url(r'remover_archivos_temporales/$', login_required(eliminarArchivosTemporales), name='remover_archivos_temporales'),
+    
+    
 ]
